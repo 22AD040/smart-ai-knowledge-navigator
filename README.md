@@ -1,5 +1,13 @@
 # 🧠 Smart AI Knowledge Navigator
 
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-red)
+![FAISS](https://img.shields.io/badge/VectorDB-FAISS-green)
+![Gemini](https://img.shields.io/badge/LLM-Gemini%202.5%20Flash-purple)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
+---
+
 An **AI-powered semantic search and knowledge intelligence platform** built using **Streamlit, FAISS, Gemini 2.5 Flash, and Machine Learning**.
 
 The application allows users to **upload documents, perform semantic search, analyze text similarity, access weather intelligence, and interact with an AI assistant** — all within a modern interactive interface.
