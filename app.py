@@ -13,7 +13,7 @@ st.set_page_config(
 )
 
 
-
+# ---------- UI STYLE (Dark + Light compatible) ----------
 
 st.markdown("""
 <style>
@@ -22,7 +22,7 @@ st.markdown("""
 background: linear-gradient(135deg,#eef2ff,#fdf2f8);
 }
 
-/* Title */
+/* Title gradient */
 
 .main-title{
 font-size:40px;
@@ -36,48 +36,91 @@ background: linear-gradient(90deg,#6366f1,#ec4899);
 
 .subtitle{
 font-size:16px;
-color: var(--text-color);
 opacity:0.8;
 margin-bottom:20px;
 }
 
-/* cards */
+/* result card */
 
 .result-card{
 padding:20px;
 border-radius:12px;
-border:1px solid rgba(0,0,0,0.08);
-background: var(--background-color);
-color: var(--text-color);
-box-shadow:0 4px 12px rgba(0,0,0,0.06);
+border:1px solid rgba(0,0,0,0.1);
+background: var(--secondary-background-color);
 margin-bottom:18px;
 }
 
-/* user chat */
+/* chat bubbles */
 
 .chat-user{
-padding:14px;
+padding:12px;
 border-radius:10px;
 background: rgba(99,102,241,0.15);
-color: var(--text-color);
-margin-bottom:10px;
+margin-bottom:8px;
 }
 
-/* ai chat */
-
 .chat-ai{
-padding:14px;
+padding:12px;
 border-radius:10px;
 background: rgba(236,72,153,0.15);
-color: var(--text-color);
-margin-bottom:10px;
+margin-bottom:12px;
+}
+
+
+/* ------------------------------ */
+/* FIX STREAMLIT VISIBILITY */
+/* ------------------------------ */
+
+.stAlert{
+color: var(--text-color) !important;
+}
+
+/* Fix info box */
+
+[data-testid="stAlert"]{
+color: var(--text-color) !important;
+background-color: var(--secondary-background-color) !important;
+}
+
+/* Fix success messages */
+
+[data-testid="stSuccess"]{
+color: var(--text-color) !important;
+}
+
+/* Fix file uploader */
+
+[data-testid="stFileUploader"]{
+color: var(--text-color) !important;
+}
+
+/* Fix text inputs */
+
+input, textarea{
+color: var(--text-color) !important;
+}
+
+/* Force readable text inside cards */
+
+.result-card{
+color: var(--text-color) !important;
+}
+
+/* Fix chat text */
+
+.chat-user{
+color: var(--text-color) !important;
+}
+
+.chat-ai{
+color: var(--text-color) !important;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 
-
+# ---------- HEADER ----------
 
 st.markdown('<div class="main-title">🧠 Smart AI Knowledge Navigator</div>', unsafe_allow_html=True)
 
@@ -87,7 +130,7 @@ unsafe_allow_html=True
 )
 
 
-
+# ---------- SIDEBAR ----------
 
 menu = st.sidebar.selectbox(
 "Navigation",
@@ -101,22 +144,30 @@ menu = st.sidebar.selectbox(
 )
 
 
-
+# ---------- PAGE 1 : UPLOAD DOCUMENT ----------
 
 if menu == "Upload Document":
 
     st.header("📄 Upload Knowledge Document")
 
     st.info("""
-Upload a document or dataset.
+### How this page works
 
-Process:
+Upload a dataset or document and the system will:
 
-1️⃣ Extract text from file  
-2️⃣ Convert text to embeddings  
-3️⃣ Store embeddings in FAISS vector database
+1️⃣ Extract text from the file  
+2️⃣ Convert the text into **vector embeddings**  
+3️⃣ Store vectors inside **FAISS vector database**
 
-Example: Upload `dataset.csv`
+This enables **semantic search instead of keyword search**.
+
+### Example
+
+Input:
+Upload `dataset.csv`
+
+Output:
+Document indexed successfully
 """)
 
     file = st.file_uploader("Upload PDF / TXT / CSV")
@@ -127,18 +178,27 @@ Example: Upload `dataset.csv`
 
         add_document(text)
 
-        st.success("Document indexed successfully!")
+        st.success("✅ Document indexed successfully!")
 
 
 
-
+# ---------- PAGE 2 : SEMANTIC SEARCH ----------
 
 if menu == "Semantic Search":
 
     st.header("🔎 Semantic Search Engine")
 
     st.info("""
-Semantic search finds **meaning**, not keywords.
+### How this page works
+
+Semantic search finds **meaning**, not just keywords.
+
+Process:
+
+1️⃣ Convert query into embedding  
+2️⃣ Compare with FAISS vector database  
+3️⃣ Calculate cosine similarity  
+4️⃣ Return most relevant documents
 
 Example query:
 
@@ -153,7 +213,7 @@ Example query:
 
         if len(results) == 0:
 
-            st.warning("Upload documents first.")
+            st.warning("⚠ Upload documents first.")
 
         else:
 
@@ -166,9 +226,9 @@ Example query:
 
 ### Result {i+1}
 
-Similarity Score: **{r['score']}**
+**Similarity Score:** `{r['score']}`
 
-Snippet:
+**Snippet**
 
 {r['text']}...
 
@@ -177,14 +237,30 @@ Snippet:
 
 
 
-
+# ---------- PAGE 3 : SIMILARITY ANALYZER ----------
 
 if menu == "Similarity Analyzer":
 
     st.header("🧠 Sentence Similarity Analyzer")
 
     st.info("""
-Compare semantic similarity between two sentences.
+### How this page works
+
+This tool measures **semantic similarity between two sentences**.
+
+The system:
+
+1️⃣ Converts both sentences into embeddings  
+2️⃣ Uses cosine similarity  
+3️⃣ Returns similarity score
+
+Example:
+
+Sentence 1:
+AI improves healthcare
+
+Sentence 2:
+Machine learning helps hospitals
 """)
 
     s1 = st.text_area("Sentence 1")
@@ -199,14 +275,26 @@ Compare semantic similarity between two sentences.
 
 
 
-
+# ---------- PAGE 4 : WEATHER AI ----------
 
 if menu == "Weather AI":
 
     st.header("🌦 Weather Intelligence")
 
     st.info("""
-Enter a city to fetch weather insights using API.
+### How this page works
+
+This module uses **Weather API + AI insight generation**
+
+Process:
+
+1️⃣ User enters city  
+2️⃣ Weather API fetches data  
+3️⃣ AI summarizes insights
+
+Example:
+
+City: Chennai
 """)
 
     city = st.text_input("Enter City")
@@ -219,36 +307,35 @@ Enter a city to fetch weather insights using API.
 
 
 
-
+# ---------- PAGE 5 : AI CHATBOT ----------
 
 if menu == "AI Chatbot":
 
     st.header("🤖 AI Assistant")
 
     st.info("""
-Chatbot powered by **Gemini 2.5 Flash**.
+### How this page works
 
-It remembers previous conversation.
+This chatbot uses **Gemini 2.5 Flash LLM**.
+
+Features:
+
+• remembers previous conversation  
+• generates intelligent answers  
+• contextual responses
 """)
 
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
+    # display chat history
     for chat in st.session_state.chat_history:
 
         if chat["role"] == "user":
-
-            st.markdown(
-            f'<div class="chat-user">👤 {chat["content"]}</div>',
-            unsafe_allow_html=True
-            )
+            st.markdown(f'<div class="chat-user">👤 {chat["content"]}</div>', unsafe_allow_html=True)
 
         else:
-
-            st.markdown(
-            f'<div class="chat-ai">🤖 {chat["content"]}</div>',
-            unsafe_allow_html=True
-            )
+            st.markdown(f'<div class="chat-ai">🤖 {chat["content"]}</div>', unsafe_allow_html=True)
 
     prompt = st.chat_input("Ask AI anything")
 
