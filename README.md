@@ -323,7 +323,7 @@ http://localhost:8501
 2️⃣ Go to
 
 ```
-https://share.streamlit.io
+https://smart-ai-knowledge-navigator-wafw824rzwbftju3ph2gjc.streamlit.app/
 ```
 
 3️⃣ Deploy repository
