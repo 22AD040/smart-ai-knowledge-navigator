@@ -13,7 +13,7 @@ st.set_page_config(
 )
 
 
-# ---------- UI STYLE (Dark + Light compatible) ----------
+
 
 st.markdown("""
 <style>
@@ -37,7 +37,7 @@ background: transparent !important;
 .main-title{
 font-size:40px;
 font-weight:700;
-
+background: linear-gradient(90deg,#6366f1,#ec4899);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
@@ -102,7 +102,6 @@ color: var(--text-color) !important;
 """, unsafe_allow_html=True)
 
 
-# ---------- HEADER ----------
 
 st.markdown('<div class="main-title">🧠 Smart AI Knowledge Navigator</div>', unsafe_allow_html=True)
 
@@ -112,7 +111,7 @@ unsafe_allow_html=True
 )
 
 
-# ---------- SIDEBAR ----------
+
 
 menu = st.sidebar.selectbox(
 "Navigation",
@@ -126,7 +125,7 @@ menu = st.sidebar.selectbox(
 )
 
 
-# ---------- PAGE 1 : UPLOAD DOCUMENT ----------
+
 
 if menu == "Upload Document":
 
@@ -164,7 +163,7 @@ Document indexed successfully
 
 
 
-# ---------- PAGE 2 : SEMANTIC SEARCH ----------
+
 
 if menu == "Semantic Search":
 
@@ -219,7 +218,7 @@ Example query:
 
 
 
-# ---------- PAGE 3 : SIMILARITY ANALYZER ----------
+
 
 if menu == "Similarity Analyzer":
 
@@ -257,7 +256,7 @@ Machine learning helps hospitals
 
 
 
-# ---------- PAGE 4 : WEATHER AI ----------
+
 
 if menu == "Weather AI":
 
@@ -289,7 +288,7 @@ City: Chennai
 
 
 
-# ---------- PAGE 5 : AI CHATBOT ----------
+
 
 if menu == "AI Chatbot":
 
@@ -310,7 +309,6 @@ Features:
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
-    # display chat history
     for chat in st.session_state.chat_history:
 
         if chat["role"] == "user":
