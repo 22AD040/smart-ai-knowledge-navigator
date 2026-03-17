@@ -18,11 +18,27 @@ st.set_page_config(
 st.markdown("""
 <style>
 
+/* ---------- REMOVE STREAMLIT WHITE BACKGROUND ---------- */
+
+.main .block-container{
+background: transparent !important;
+}
+
+[data-testid="stAppViewContainer"]{
+background: transparent !important;
+}
+
+[data-testid="stHeader"]{
+background: transparent !important;
+}
+
+/* ---------- APP BACKGROUND ---------- */
+
 .stApp{
 background: linear-gradient(135deg,#eef2ff,#fdf2f8);
 }
 
-/* Title gradient */
+/* ---------- TITLE ---------- */
 
 .main-title{
 font-size:40px;
@@ -32,31 +48,35 @@ background: linear-gradient(90deg,#6366f1,#ec4899);
 -webkit-text-fill-color:transparent;
 }
 
-/* subtitle */
+/* ---------- SUBTITLE ---------- */
 
 .subtitle{
 font-size:16px;
-opacity:0.8;
+opacity:0.9;
 margin-bottom:20px;
+color: var(--text-color);
 }
 
-/* result card */
+/* ---------- RESULT CARD ---------- */
 
 .result-card{
 padding:20px;
 border-radius:12px;
 border:1px solid rgba(0,0,0,0.1);
-background: var(--secondary-background-color);
+background: rgba(255,255,255,0.6);
+backdrop-filter: blur(10px);
 margin-bottom:18px;
+color: var(--text-color);
 }
 
-/* chat bubbles */
+/* ---------- CHAT BUBBLES ---------- */
 
 .chat-user{
 padding:12px;
 border-radius:10px;
 background: rgba(99,102,241,0.15);
 margin-bottom:8px;
+color: var(--text-color);
 }
 
 .chat-ai{
@@ -64,56 +84,30 @@ padding:12px;
 border-radius:10px;
 background: rgba(236,72,153,0.15);
 margin-bottom:12px;
+color: var(--text-color);
 }
 
-
-/* ------------------------------ */
-/* FIX STREAMLIT VISIBILITY */
-/* ------------------------------ */
-
-.stAlert{
-color: var(--text-color) !important;
-}
-
-/* Fix info box */
+/* ---------- REMOVE WHITE BOXES FROM STREAMLIT COMPONENTS ---------- */
 
 [data-testid="stAlert"]{
+background: rgba(255,255,255,0.3) !important;
 color: var(--text-color) !important;
-background-color: var(--secondary-background-color) !important;
+border-radius:10px;
 }
-
-/* Fix success messages */
 
 [data-testid="stSuccess"]{
+background: rgba(16,185,129,0.15) !important;
 color: var(--text-color) !important;
 }
-
-/* Fix file uploader */
 
 [data-testid="stFileUploader"]{
-color: var(--text-color) !important;
+background: rgba(255,255,255,0.3) !important;
+border-radius:12px;
 }
-
-/* Fix text inputs */
 
 input, textarea{
 color: var(--text-color) !important;
-}
-
-/* Force readable text inside cards */
-
-.result-card{
-color: var(--text-color) !important;
-}
-
-/* Fix chat text */
-
-.chat-user{
-color: var(--text-color) !important;
-}
-
-.chat-ai{
-color: var(--text-color) !important;
+background: rgba(255,255,255,0.2) !important;
 }
 
 </style>
