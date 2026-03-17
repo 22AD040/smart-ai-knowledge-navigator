@@ -19,11 +19,7 @@ st.markdown("""
 <style>
 
 .stApp{
-background: linear-gradient(
-135deg,
-var(--background-color),
-var(--secondary-background-color)
-);
+background: linear-gradient(135deg,#eef2ff,#fdf2f8);
 }
 
 /* Title */
