@@ -32,18 +32,12 @@ background: transparent !important;
 background: transparent !important;
 }
 
-/* ---------- APP BACKGROUND ---------- */
-
-.stApp{
-background: linear-gradient(135deg,#eef2ff,#fdf2f8);
-}
-
 /* ---------- TITLE ---------- */
 
 .main-title{
 font-size:40px;
 font-weight:700;
-background: linear-gradient(90deg,#6366f1,#ec4899);
+
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
@@ -63,8 +57,6 @@ color: var(--text-color);
 padding:20px;
 border-radius:12px;
 border:1px solid rgba(0,0,0,0.1);
-background: rgba(255,255,255,0.6);
-backdrop-filter: blur(10px);
 margin-bottom:18px;
 color: var(--text-color);
 }
@@ -74,7 +66,6 @@ color: var(--text-color);
 .chat-user{
 padding:12px;
 border-radius:10px;
-background: rgba(99,102,241,0.15);
 margin-bottom:8px;
 color: var(--text-color);
 }
@@ -82,7 +73,6 @@ color: var(--text-color);
 .chat-ai{
 padding:12px;
 border-radius:10px;
-background: rgba(236,72,153,0.15);
 margin-bottom:12px;
 color: var(--text-color);
 }
@@ -90,24 +80,22 @@ color: var(--text-color);
 /* ---------- REMOVE WHITE BOXES FROM STREAMLIT COMPONENTS ---------- */
 
 [data-testid="stAlert"]{
-background: rgba(255,255,255,0.3) !important;
 color: var(--text-color) !important;
 border-radius:10px;
 }
 
 [data-testid="stSuccess"]{
-background: rgba(16,185,129,0.15) !important;
 color: var(--text-color) !important;
 }
 
 [data-testid="stFileUploader"]{
-background: rgba(255,255,255,0.3) !important;
+
 border-radius:12px;
 }
 
 input, textarea{
 color: var(--text-color) !important;
-background: rgba(255,255,255,0.2) !important;
+
 }
 
 </style>
