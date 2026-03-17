@@ -14,14 +14,19 @@ st.set_page_config(
 
 
 
+
 st.markdown("""
 <style>
 
 .stApp{
-background: linear-gradient(135deg,#eef2ff,#fdf2f8);
+background: linear-gradient(
+135deg,
+var(--background-color),
+var(--secondary-background-color)
+);
 }
 
-/* Title gradient */
+/* Title */
 
 .main-title{
 font-size:40px;
@@ -35,38 +40,46 @@ background: linear-gradient(90deg,#6366f1,#ec4899);
 
 .subtitle{
 font-size:16px;
+color: var(--text-color);
 opacity:0.8;
 margin-bottom:20px;
 }
 
-/* result card */
+/* cards */
 
 .result-card{
 padding:20px;
 border-radius:12px;
-border:1px solid rgba(0,0,0,0.1);
-background: var(--secondary-background-color);
+border:1px solid rgba(0,0,0,0.08);
+background: var(--background-color);
+color: var(--text-color);
+box-shadow:0 4px 12px rgba(0,0,0,0.06);
 margin-bottom:18px;
 }
 
-/* chat bubbles */
+/* user chat */
 
 .chat-user{
-padding:12px;
+padding:14px;
 border-radius:10px;
 background: rgba(99,102,241,0.15);
-margin-bottom:8px;
+color: var(--text-color);
+margin-bottom:10px;
 }
 
+/* ai chat */
+
 .chat-ai{
-padding:12px;
+padding:14px;
 border-radius:10px;
 background: rgba(236,72,153,0.15);
-margin-bottom:12px;
+color: var(--text-color);
+margin-bottom:10px;
 }
 
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
@@ -76,6 +89,7 @@ st.markdown(
 '<div class="subtitle">AI powered semantic search and knowledge intelligence platform</div>',
 unsafe_allow_html=True
 )
+
 
 
 
@@ -92,28 +106,21 @@ menu = st.sidebar.selectbox(
 
 
 
+
 if menu == "Upload Document":
 
     st.header("📄 Upload Knowledge Document")
 
     st.info("""
-### How this page works
+Upload a document or dataset.
 
-Upload a dataset or document and the system will:
+Process:
 
-1️⃣ Extract text from the file  
-2️⃣ Convert the text into **vector embeddings**  
-3️⃣ Store vectors inside **FAISS vector database**
+1️⃣ Extract text from file  
+2️⃣ Convert text to embeddings  
+3️⃣ Store embeddings in FAISS vector database
 
-This enables **semantic search instead of keyword search**.
-
-### Example
-
-Input:
-Upload `dataset.csv`
-
-Output:
-Document indexed successfully
+Example: Upload `dataset.csv`
 """)
 
     file = st.file_uploader("Upload PDF / TXT / CSV")
@@ -124,7 +131,8 @@ Document indexed successfully
 
         add_document(text)
 
-        st.success("✅ Document indexed successfully!")
+        st.success("Document indexed successfully!")
+
 
 
 
@@ -134,16 +142,7 @@ if menu == "Semantic Search":
     st.header("🔎 Semantic Search Engine")
 
     st.info("""
-### How this page works
-
-Semantic search finds **meaning**, not just keywords.
-
-Process:
-
-1️⃣ Convert query into embedding  
-2️⃣ Compare with FAISS vector database  
-3️⃣ Calculate cosine similarity  
-4️⃣ Return most relevant documents
+Semantic search finds **meaning**, not keywords.
 
 Example query:
 
@@ -158,7 +157,7 @@ Example query:
 
         if len(results) == 0:
 
-            st.warning("⚠ Upload documents first.")
+            st.warning("Upload documents first.")
 
         else:
 
@@ -171,9 +170,9 @@ Example query:
 
 ### Result {i+1}
 
-**Similarity Score:** `{r['score']}`
+Similarity Score: **{r['score']}**
 
-**Snippet**
+Snippet:
 
 {r['text']}...
 
@@ -183,28 +182,13 @@ Example query:
 
 
 
+
 if menu == "Similarity Analyzer":
 
     st.header("🧠 Sentence Similarity Analyzer")
 
     st.info("""
-### How this page works
-
-This tool measures **semantic similarity between two sentences**.
-
-The system:
-
-1️⃣ Converts both sentences into embeddings  
-2️⃣ Uses cosine similarity  
-3️⃣ Returns similarity score
-
-Example:
-
-Sentence 1:
-AI improves healthcare
-
-Sentence 2:
-Machine learning helps hospitals
+Compare semantic similarity between two sentences.
 """)
 
     s1 = st.text_area("Sentence 1")
@@ -220,24 +204,13 @@ Machine learning helps hospitals
 
 
 
+
 if menu == "Weather AI":
 
     st.header("🌦 Weather Intelligence")
 
     st.info("""
-### How this page works
-
-This module uses **Weather API + AI insight generation**
-
-Process:
-
-1️⃣ User enters city  
-2️⃣ Weather API fetches data  
-3️⃣ AI summarizes insights
-
-Example:
-
-City: Chennai
+Enter a city to fetch weather insights using API.
 """)
 
     city = st.text_input("Enter City")
@@ -251,20 +224,15 @@ City: Chennai
 
 
 
+
 if menu == "AI Chatbot":
 
     st.header("🤖 AI Assistant")
 
     st.info("""
-### How this page works
+Chatbot powered by **Gemini 2.5 Flash**.
 
-This chatbot uses **Gemini 2.5 Flash LLM**.
-
-Features:
-
-• remembers previous conversation  
-• generates intelligent answers  
-• contextual responses
+It remembers previous conversation.
 """)
 
     if "chat_history" not in st.session_state:
@@ -273,10 +241,18 @@ Features:
     for chat in st.session_state.chat_history:
 
         if chat["role"] == "user":
-            st.markdown(f'<div class="chat-user">👤 {chat["content"]}</div>', unsafe_allow_html=True)
+
+            st.markdown(
+            f'<div class="chat-user">👤 {chat["content"]}</div>',
+            unsafe_allow_html=True
+            )
 
         else:
-            st.markdown(f'<div class="chat-ai">🤖 {chat["content"]}</div>', unsafe_allow_html=True)
+
+            st.markdown(
+            f'<div class="chat-ai">🤖 {chat["content"]}</div>',
+            unsafe_allow_html=True
+            )
 
     prompt = st.chat_input("Ask AI anything")
 

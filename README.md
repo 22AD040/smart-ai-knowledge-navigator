@@ -250,7 +250,7 @@ smart-ai-knowledge-navigator
 ### 1️⃣ Clone the repository
 
 ```
-git clone https://github.com/yourusername/smart-ai-knowledge-navigator.git
+git clone https://github.com/22AD040/smart-ai-knowledge-navigator.git
 ```
 
 ```
